@@ -1,0 +1,141 @@
+<%# app/views/battles/_board.html.erb %>
+<%# カードクリック時のモーダル %>
+<div id="position-select-modal" class="modal" style="display: none;">
+ <div class="modal-content">
+   <h3>配置する場所を選択してください</h3>
+   <div class="position-buttons">
+     <button data-position="left" class="position-button">Left</button>
+     <button data-position="center" class="position-button">Center</button>
+     <button data-position="right" class="position-button">Right</button>
+   </div>
+ </div>
+</div>
+
+<div class="battle-board">
+ <%# プレイヤー2の情報 %>
+ <div class="player2-area">
+   <div class="deck-info">
+     <h3>Player 2 の山札: <%= board.player2_deck.size %>枚</h3>
+     <div class="deck-cards">
+       <% board.player2_deck.each do |sequence| %>
+         <% card_id = battle.get_card_id_by_sequence(2, sequence) %>
+         <div class="card" 
+              data-sequence="<%= sequence %>" 
+              data-player="2"
+              data-behavior="playable_card">
+           Seq.<%= sequence %>: 
+           <%= cards[card_id]&.name || "Unknown Card(#{card_id})" %>
+         </div>
+       <% end %>
+     </div>
+   </div>
+
+   <div class="battle-members">
+     <div class="member-slot <%= 'active' if board.player2_left_member %>">
+       <% if board.player2_left_member %>
+         <% card_id = battle.get_card_id_by_sequence(2, board.player2_left_member) %>
+         <div class="member">
+           <%= cards[card_id]&.name || "Unknown" %>
+           <div class="sequence">Seq.<%= board.player2_left_member %></div>
+         </div>
+       <% else %>
+         <div class="empty-slot">-</div>
+       <% end %>
+     </div>
+
+     <div class="member-slot <%= 'active' if board.player2_center_member %>">
+       <% if board.player2_center_member %>
+         <% card_id = battle.get_card_id_by_sequence(2, board.player2_center_member) %>
+         <div class="member">
+           <%= cards[card_id]&.name || "Unknown" %>
+           <div class="sequence">Seq.<%= board.player2_center_member %></div>
+         </div>
+       <% else %>
+         <div class="empty-slot">-</div>
+       <% end %>
+     </div>
+
+     <div class="member-slot <%= 'active' if board.player2_right_member %>">
+       <% if board.player2_right_member %>
+         <% card_id = battle.get_card_id_by_sequence(2, board.player2_right_member) %>
+         <div class="member">
+           <%= cards[card_id]&.name || "Unknown" %>
+           <div class="sequence">Seq.<%= board.player2_right_member %></div>
+         </div>
+       <% else %>
+         <div class="empty-slot">-</div>
+       <% end %>
+     </div>
+   </div>
+ </div>
+
+ <%# 中央の情報エリア %>
+ <div class="battle-info">
+   <div class="turn-info">
+     <h2>Turn <%= board.turn %></h2>
+     <p>Phase: <%= board.phase %></p>
+     <p>Active Player: Player <%= board.active_player %></p>
+     
+     <button class="end-turn-button" data-behavior="end_turn" data-battle-id="<%= battle.id %>">
+       ターン終了
+     </button>
+   </div>
+ </div>
+
+ <%# プレイヤー1の情報 %>
+ <div class="player1-area">
+   <div class="battle-members">
+     <div class="member-slot <%= 'active' if board.player1_left_member %>">
+       <% if board.player1_left_member %>
+         <% card_id = battle.get_card_id_by_sequence(1, board.player1_left_member) %>
+         <div class="member">
+           <%= cards[card_id]&.name || "Unknown" %>
+           <div class="sequence">Seq.<%= board.player1_left_member %></div>
+         </div>
+       <% else %>
+         <div class="empty-slot">-</div>
+       <% end %>
+     </div>
+
+     <div class="member-slot <%= 'active' if board.player1_center_member %>">
+       <% if board.player1_center_member %>
+         <% card_id = battle.get_card_id_by_sequence(1, board.player1_center_member) %>
+         <div class="member">
+           <%= cards[card_id]&.name || "Unknown" %>
+           <div class="sequence">Seq.<%= board.player1_center_member %></div>
+         </div>
+       <% else %>
+         <div class="empty-slot">-</div>
+       <% end %>
+     </div>
+
+     <div class="member-slot <%= 'active' if board.player1_right_member %>">
+       <% if board.player1_right_member %>
+         <% card_id = battle.get_card_id_by_sequence(1, board.player1_right_member) %>
+         <div class="member">
+           <%= cards[card_id]&.name || "Unknown" %>
+           <div class="sequence">Seq.<%= board.player1_right_member %></div>
+         </div>
+       <% else %>
+         <div class="empty-slot">-</div>
+       <% end %>
+     </div>
+   </div>
+
+   <div class="deck-info">
+     <h3>Player 1 の山札: <%= board.player1_deck.size %>枚</h3>
+     <div class="deck-cards">
+       <% board.player1_deck.each do |sequence| %>
+         <% card_id = battle.get_card_id_by_sequence(1, sequence) %>
+         <div class="card" 
+              data-sequence="<%= sequence %>" 
+              data-player="1"
+              data-behavior="playable_card">
+           Seq.<%= sequence %>: 
+           <%= cards[card_id]&.name || "Unknown Card(#{card_id})" %>
+         </div>
+       <% end %>
+     </div>
+   </div>
+ </div>
+</div>

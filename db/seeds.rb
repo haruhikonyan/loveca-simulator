@@ -12,3 +12,6 @@ member2 = Card.find_or_create_by!(card_type: :member, name: "南ことり", code
 live1 = Card.find_or_create_by!(card_type: :live, name: "スノハレ", code: "test-3", score: 2)
 
 Deck.find_or_create_by!(name: "デッキ1", card_ids: [ member1.id, member1.id, member1.id, member2.id, member2.id, live1.id, live1.id ])
+
+User.find_or_create_by!(name: 'ゲスト1')
+User.find_or_create_by!(name: 'ゲスト2')

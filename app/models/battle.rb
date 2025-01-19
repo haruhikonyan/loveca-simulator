@@ -20,4 +20,10 @@ class Battle < ApplicationRecord
   validates :player2_deck, presence: true
   validates :player1_id, presence: true
   validates :player2_id, presence: true
+
+  def get_card_id_by_sequence(player_num, sequence)
+    deck = player_num == 1 ? player1_deck : player2_deck
+    deck_entry = deck.find { |entry| entry["sequence"] == sequence }
+    deck_entry&.fetch("card_id")
+  end
 end
