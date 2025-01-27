@@ -28,3 +28,12 @@ class Board < ApplicationRecord
   validates :player1_deck, presence: true
   validates :player2_deck, presence: true
 end
+
+aa = Board.new(
+  battle: Battle.first,
+  turn: 1,
+  phase: 1,
+  active_player: 0,
+  player1_deck: Battle.first.player1_deck.map { |card| card["sequence"] },
+  player2_deck: Battle.first.player2_deck.map { |card| card["sequence"] },
+)
